@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Cube - PhotoBooth Studio</title>
     <meta name="description"
         content="Cube PhotoBooth Studio - Buat foto booth kamu sendiri dengan berbagai layout dan filter menarik">
@@ -106,16 +106,16 @@
 
     <!-- Header -->
     <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
+        <div class="container mx-auto px-3 sm:px-4 py-2.5 sm:py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-blue-900 rounded-xl flex items-center justify-center">
+                <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-900 rounded-xl flex items-center justify-center">
                         <img src="./assets/logo.png" alt="">
                     </div>
-                    <h1 class="text-2xl font-bold text-white">Cube</h1>
+                    <h1 class="text-lg sm:text-2xl font-bold text-white">Cube</h1>
                 </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-sm font-medium text-gray-300" id="stepInfo">Step 1 of 3</span>
+                <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+                    <span class="text-xs sm:text-sm font-medium text-gray-300 hidden sm:inline" id="stepInfo">Step 1 of 3</span>
 
                     <!-- User area: shown when logged in -->
                     <div id="headerUserArea" class="user-area hidden">
@@ -157,15 +157,15 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 max-w-6xl">
+    <main class="container mx-auto px-3 sm:px-4 py-4 sm:py-8 max-w-6xl">
         <!-- Step 1: Layout Selection -->
         <div id="step1" class="step-container">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-white mb-2">Pilih Layout Frame</h2>
-                <p class="text-gray-300">Pilih template layout photobooth favorit kamu</p>
+            <div class="text-center mb-4 sm:mb-8">
+                <h2 class="text-xl sm:text-3xl font-bold text-white mb-2">Pilih Layout Frame</h2>
+                <p class="text-gray-300 text-sm sm:text-base">Pilih template layout photobooth favorit kamu</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-4">
                 <button onclick="selectLayout('strip-3')" class="layout-card">
                     <div class="layout-preview w-1/2 mx-auto rounded-xl p-1">
                         <div class="flex flex-col gap-0.5">
@@ -282,9 +282,9 @@
 
         <!-- Step 2: Camera -->
         <div id="step2" class="step-container hidden">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white mb-2">Ambil Foto</h2>
-                <p class="text-gray-300">Foto <span id="currentPhoto">0</span> dari <span id="maxPhotos">0</span></p>
+            <div class="text-center mb-4 sm:mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">Ambil Foto</h2>
+                <p class="text-gray-300 text-sm sm:text-base">Foto <span id="currentPhoto">0</span> dari <span id="maxPhotos">0</span></p>
             </div>
 
             <div class="max-w-2xl mx-auto camera-capture-layout">
@@ -388,7 +388,7 @@
                 <p class="text-gray-300">Pilih warna frame dan template dekorasi!</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-6">
+            <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
                 <!-- Left: Customization Tools -->
                 <div class="customize-panel">
                     <!-- Frame Color Section -->

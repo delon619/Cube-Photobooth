@@ -410,6 +410,7 @@ body {
         flex-direction: row;
         justify-content: center;
         margin-top: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .shutter-btn-outer {
@@ -1532,29 +1533,484 @@ canvas {
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 640px) {
-    .auth-modal {
-        padding: 1.75rem;
-        margin: 0.75rem;
+/* --- Tablet & Small Desktop (max-width: 768px) --- */
+@media (max-width: 768px) {
+    .color-swatches {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.5rem;
     }
 
+    .template-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+    }
+
+    .frame-preview-canvas-container canvas {
+        max-height: 400px;
+    }
+}
+
+/* --- Mobile (max-width: 640px) --- */
+@media (max-width: 640px) {
+
+    /* Auth Modal */
+    .auth-modal {
+        padding: 1.5rem;
+        margin: 0.75rem;
+        border-radius: 1.25rem;
+    }
+
+    .auth-logo h2 {
+        font-size: 1.25rem;
+    }
+
+    .auth-logo .logo-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .auth-tab {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    /* Header */
     .user-name {
         display: none;
     }
 
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.625rem;
+    }
+
     .header-btn {
-        padding: 0.4rem 0.75rem;
+        padding: 0.375rem 0.625rem;
+        font-size: 0.6875rem;
+        gap: 0.25rem;
+    }
+
+    .header-btn svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .draft-badge {
+        font-size: 0.5625rem;
+        padding: 1px 4px;
+        min-width: 15px;
+    }
+
+    /* Step titles */
+    .step-container h2 {
+        font-size: 1.375rem !important;
+    }
+
+    .step-container p {
+        font-size: 0.8125rem;
+    }
+
+    /* Layout Selection Grid */
+    .layout-card {
+        padding: 0.625rem;
+        border-radius: 0.75rem;
+    }
+
+    .layout-card p {
+        font-size: 0.6875rem !important;
+    }
+
+    /* Camera Viewfinder */
+    .camera-capture-layout {
+        margin-bottom: 1rem;
+    }
+
+    /* Timer panel - already horizontal via 1200px media query */
+    .timer-capsule {
+        width: 220px !important;
+        height: 56px !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .timer-btn {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 0.875rem !important;
+    }
+
+    /* Shutter button */
+    .shutter-btn-outer {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .shutter-btn-inner {
+        width: 46px !important;
+        height: 46px !important;
+    }
+
+    .shutter-btn-inner svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Camera toolbar */
+    .camera-toolbar {
+        gap: 0.5rem;
+    }
+
+    .camera-toolbar-btn {
+        padding: 0.625rem 0.75rem;
+        font-size: 0.75rem;
+        border-radius: 0.75rem;
+    }
+
+    .camera-toolbar-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Photo Grid */
+    #photoGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+
+    .photo-slot {
+        border-radius: 0.5rem;
+    }
+
+    .photo-slot .slot-number {
+        font-size: 1.25rem;
+    }
+
+    .photo-slot .slot-actions {
+        opacity: 1;
+    }
+
+    .slot-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    /* Countdown */
+    #countdownNumber {
+        font-size: 5rem !important;
+    }
+
+    /* Next / Action Buttons */
+    #nextToEditor,
+    .btn-save-draft {
+        padding: 0.625rem 1.5rem;
+        font-size: 0.875rem;
+        border-radius: 0.625rem;
+    }
+
+    /* Step 3: Customize */
+    .customize-section {
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .customize-section h3 {
+        font-size: 0.8125rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .color-swatches {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.375rem;
+    }
+
+    .color-swatch {
+        border-width: 2px;
+    }
+
+    .color-swatch.active::after {
+        font-size: 0.6875rem;
+    }
+
+    .custom-color-row label {
         font-size: 0.75rem;
     }
 
+    .custom-color-input {
+        width: 34px;
+        height: 34px;
+    }
+
+    .template-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.375rem;
+    }
+
+    .template-card {
+        padding: 0.375rem 0.25rem;
+        border-radius: 0.5rem;
+    }
+
+    .template-card-icon {
+        font-size: 1.25rem;
+    }
+
+    .template-card-name {
+        font-size: 0.5625rem;
+    }
+
+    /* Frame Preview */
+    .frame-preview-wrapper {
+        padding: 1rem;
+    }
+
+    .frame-preview-wrapper h3 {
+        font-size: 0.8125rem;
+    }
+
+    .frame-preview-canvas-container canvas {
+        max-height: 350px;
+    }
+
+    .sticker-info {
+        font-size: 0.6875rem;
+    }
+
+    /* Step 4: Export */
+    .flex.flex-wrap.gap-3 {
+        gap: 0.5rem;
+    }
+
+    /* Draft Page */
     .draft-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
     }
 
     .draft-header {
         flex-direction: column;
         gap: 0.5rem;
         text-align: center;
+    }
+
+    .draft-header h2 {
+        font-size: 1.375rem;
+    }
+
+    .draft-card-info {
+        padding: 0.75rem;
+    }
+
+    .draft-card-name {
+        font-size: 0.8125rem;
+    }
+
+    .draft-card-meta {
+        font-size: 0.6875rem;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+    }
+
+    .draft-action-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    /* Save Draft Modal */
+    .save-draft-modal {
+        padding: 1.5rem;
+        margin: 0.75rem;
+        border-radius: 1rem;
+    }
+
+    .save-draft-modal h3 {
+        font-size: 1.125rem;
+    }
+
+    .save-draft-modal p {
+        font-size: 0.75rem;
+    }
+
+    .save-draft-actions button {
+        padding: 0.625rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    /* Notification */
+    .notification {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.8125rem;
+        border-radius: 0.625rem;
+    }
+
+    /* Draft empty state */
+    .draft-empty {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .draft-empty-icon {
+        font-size: 3rem;
+    }
+
+    .draft-empty h3 {
+        font-size: 1rem;
+    }
+
+    .draft-empty p {
+        font-size: 0.75rem;
+    }
+}
+
+/* --- Small Mobile (max-width: 480px) --- */
+@media (max-width: 480px) {
+
+    /* Even smaller header adjustments */
+    .header-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.625rem;
+    }
+
+    /* Layout grid: stay at 2 columns but tighter */
+    .layout-card {
+        padding: 0.5rem;
+    }
+
+    .layout-preview {
+        margin-bottom: 0.5rem;
+        padding: 0.375rem;
+    }
+
+    /* Timer even smaller */
+    .timer-capsule {
+        width: 190px !important;
+        height: 50px !important;
+        padding: 0.375rem 0.75rem !important;
+    }
+
+    .timer-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.8125rem !important;
+    }
+
+    /* Shutter even smaller */
+    .shutter-btn-outer {
+        width: 54px !important;
+        height: 54px !important;
+    }
+
+    .shutter-btn-inner {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .shutter-btn-inner svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    /* Color swatches tighter */
+    .color-swatches {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.25rem;
+    }
+
+    /* Template gallery single column on very small */
+    .template-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Export page */
+    .frame-preview-canvas-container canvas {
+        max-height: 280px;
+    }
+
+    /* Draft grid single column */
+    .draft-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    /* Action buttons wrap */
+    .flex.flex-wrap {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .flex.flex-wrap button,
+    .flex.flex-wrap .btn-save-draft {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* --- Extra Small Mobile (max-width: 360px) --- */
+@media (max-width: 360px) {
+
+    .auth-modal {
+        padding: 1.25rem;
+        margin: 0.5rem;
+    }
+
+    .auth-logo h2 {
+        font-size: 1.125rem;
+    }
+
+    .form-input {
+        padding: 0.625rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    .auth-submit {
+        padding: 0.7rem 1rem;
+        font-size: 0.8125rem;
+    }
+
+    .step-container h2 {
+        font-size: 1.125rem !important;
+    }
+
+    .customize-section {
+        padding: 0.75rem;
+    }
+
+    #countdownNumber {
+        font-size: 4rem !important;
+    }
+}
+
+/* --- Touch-friendly adjustments for all mobile --- */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Make touch targets larger */
+    .color-swatch {
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    .template-card {
+        min-height: 60px;
+    }
+
+    /* Show slot actions always (no hover on touch) */
+    .photo-slot .slot-actions {
+        opacity: 1;
+    }
+
+    /* Show draft overlay always on touch */
+    .draft-card-overlay {
+        opacity: 1;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+    }
+
+    /* Larger tap areas for toolbar */
+    .camera-toolbar-btn {
+        min-height: 44px;
+    }
+
+    .header-btn {
+        min-height: 36px;
     }
 }
