@@ -867,6 +867,12 @@ canvas {
     gap: 0.75rem;
 }
 
+@media (max-width: 640px) {
+    .user-area {
+        gap: 0.375rem;
+    }
+}
+
 .user-avatar {
     width: 36px;
     height: 36px;
