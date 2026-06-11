@@ -15,6 +15,135 @@ const app = {
     currentDraftId: null
 };
 
+// ============================================
+// SOUND EFFECTS (Web Audio API)
+// ============================================
+
+const SoundFX = (() => {
+    let audioCtx = null;
+
+    function getContext() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        return audioCtx;
+    }
+
+    /**
+     * Plays a short beep for countdown ticks.
+     * @param {boolean} isLastTick - If true, plays a higher-pitched beep.
+     */
+    function playTimerBeep(isLastTick = false) {
+        try {
+            const ctx = getContext();
+            const oscillator = ctx.createOscillator();
+            const gainNode = ctx.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(ctx.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(isLastTick ? 880 : 600, ctx.currentTime);
+
+            gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + (isLastTick ? 0.25 : 0.15));
+
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + (isLastTick ? 0.25 : 0.15));
+        } catch (e) {
+            // Silently fail if audio not supported
+        }
+    }
+
+    /**
+     * Plays a loud, crisp camera shutter sound.
+     */
+    function playShutterSound() {
+        try {
+            const ctx = getContext();
+            const now = ctx.currentTime;
+
+            // --- Layer 1: Bright unfiltered noise crack (the "crispness") ---
+            const crackDur = 0.08;
+            const crackLen = Math.ceil(ctx.sampleRate * crackDur);
+            const crackBuf = ctx.createBuffer(1, crackLen, ctx.sampleRate);
+            const crackData = crackBuf.getChannelData(0);
+            for (let i = 0; i < crackLen; i++) {
+                const t = i / ctx.sampleRate;
+                crackData[i] = (Math.random() * 2 - 1) * Math.exp(-t * 60);
+            }
+            const crackSrc = ctx.createBufferSource();
+            crackSrc.buffer = crackBuf;
+            // Highpass only — let all the highs through, no muffling
+            const hp = ctx.createBiquadFilter();
+            hp.type = 'highpass';
+            hp.frequency.setValueAtTime(1500, now);
+            const crackGain = ctx.createGain();
+            crackGain.gain.setValueAtTime(1.0, now);
+            crackGain.gain.exponentialRampToValueAtTime(0.01, now + crackDur);
+            crackSrc.connect(hp);
+            hp.connect(crackGain);
+            crackGain.connect(ctx.destination);
+            crackSrc.start(now);
+            crackSrc.stop(now + crackDur);
+
+            // --- Layer 2: Full-spectrum noise punch (the "body") ---
+            const bodyDur = 0.12;
+            const bodyLen = Math.ceil(ctx.sampleRate * bodyDur);
+            const bodyBuf = ctx.createBuffer(1, bodyLen, ctx.sampleRate);
+            const bodyData = bodyBuf.getChannelData(0);
+            for (let i = 0; i < bodyLen; i++) {
+                const t = i / ctx.sampleRate;
+                bodyData[i] = (Math.random() * 2 - 1) * Math.exp(-t * 35);
+            }
+            const bodySrc = ctx.createBufferSource();
+            bodySrc.buffer = bodyBuf;
+            const bodyGain = ctx.createGain();
+            bodyGain.gain.setValueAtTime(0.8, now);
+            bodyGain.gain.exponentialRampToValueAtTime(0.01, now + bodyDur);
+            // No filter — full spectrum for maximum presence
+            bodySrc.connect(bodyGain);
+            bodyGain.connect(ctx.destination);
+            bodySrc.start(now);
+            bodySrc.stop(now + bodyDur);
+
+            // --- Layer 3: Sharp transient click ---
+            const clickOsc = ctx.createOscillator();
+            const clickGain = ctx.createGain();
+            clickOsc.type = 'square';
+            clickOsc.frequency.setValueAtTime(2000, now);
+            clickOsc.frequency.exponentialRampToValueAtTime(100, now + 0.02);
+            clickGain.gain.setValueAtTime(0.5, now);
+            clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+            clickOsc.connect(clickGain);
+            clickGain.connect(ctx.destination);
+            clickOsc.start(now);
+            clickOsc.stop(now + 0.02);
+
+            // --- Layer 4: Low-end punch for weight ---
+            const thump = ctx.createOscillator();
+            const thumpGain = ctx.createGain();
+            thump.type = 'sine';
+            thump.frequency.setValueAtTime(300, now);
+            thump.frequency.exponentialRampToValueAtTime(60, now + 0.05);
+            thumpGain.gain.setValueAtTime(0.5, now);
+            thumpGain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+            thump.connect(thumpGain);
+            thumpGain.connect(ctx.destination);
+            thump.start(now);
+            thump.stop(now + 0.05);
+
+        } catch (e) {
+            // Silently fail if audio not supported
+        }
+    }
+
+    return { playTimerBeep, playShutterSound };
+})();
+
 // Layout Configurations
 const layouts = {
     'strip-3': { name: 'Strip 3', width: 600, height: 1800, photos: 3, type: 'strip' },
@@ -667,6 +796,7 @@ async function capturePhoto() {
             const timerValue = app.timer || 3;
             for (let i = timerValue; i > 0; i--) {
                 number.textContent = i;
+                SoundFX.playTimerBeep(i === 1);
                 await sleep(1000);
             }
 
@@ -684,6 +814,7 @@ async function capturePhoto() {
             ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
             ctx.restore();
 
+            SoundFX.playShutterSound();
             app.photos.push(canvas.toDataURL('image/jpeg', 0.95));
             renderPhotoGrid();
 
